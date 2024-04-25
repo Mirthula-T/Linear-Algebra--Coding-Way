@@ -1,4 +1,16 @@
 
+This program demonstrates the action of a 2x2 matrix A on two eigenvectors u and v. 
+
+1. Import the necessary libraries: numpy for numerical operations and matplotlib.pyplot for plotting.
+2. Define the matrix A as a 2x2 numpy array.
+3. Define eigenvectors u and v as numpy arrays.
+4. Compute the action of matrix A on eigenvectors u and v using the dot product.
+5. Set up the plotting environment with two subplots.
+6. In the first subplot, plot eigenvector u and its transformed vector Au using plt.plot().
+7. In the second subplot, plot eigenvector v and its transformed vector Av using plt.plot().
+8. Add labels, titles, and legends to the plots for clarity.
+9. Adjust the layout and display the plots using plt.tight_layout() and plt.show().
+
 import numpy as np
 import matplotlib.pyplot as plt
 
