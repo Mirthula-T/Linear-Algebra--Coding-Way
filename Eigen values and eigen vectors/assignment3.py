@@ -1,3 +1,22 @@
+
+1. Define the original 3x3 matrix A.
+2. Define a function inverse(matrix) to calculate the inverse of a 3x3 matrix without using Python functions.
+   - Calculate the determinant of the matrix.
+   - Check if the determinant is zero (indicating a singular matrix), in which case return None.
+   - Calculate the adjugate matrix.
+   - Multiply the adjugate matrix by the reciprocal of the determinant to get the inverse.
+3. Define a function matrixmul(matrix1, matrix2) to multiply two matrices.
+   - Initialize a result matrix with zeros.
+   - Use nested loops to iterate over rows and columns of the matrices and perform matrix multiplication.
+4. Calculate the inverse of matrix A using the inverse function.
+5. Print the original matrix A.
+6. Print the inverse of matrix A.
+7. Calculate the product of matrix A and its inverse using the matrixmul function.
+8. Print the product.
+ To calculate the inverse of a given 3x3 matrix and verify it by multiplying the original matrix with its inverse.
+
+
+
 # Original 3x3 matrix A
 A = [[0,1,2],
      [1,0,3],
