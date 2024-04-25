@@ -1,4 +1,4 @@
-This program calculates the eigenvalues and eigenvectors of a given matrix A using NumPy, then checks if the eigenvectors corresponding to distinct eigenvalues are linearly dependent or independent. Here's the algorithm breakdown:
+This program calculates the eigenvalues and eigenvectors of a given matrix A using NumPy, then checks if the eigenvectors corresponding to distinct eigenvalues are linearly dependent or independent
 
 1. Import the NumPy library.
 2. Define matrix A.
