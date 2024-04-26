@@ -1,93 +1,100 @@
 
-1. Define the original 3x3 matrix A.
-2. Define a function inverse(matrix) to calculate the inverse of a 3x3 matrix without using Python functions.
-   - Calculate the determinant of the matrix.
-   - Check if the determinant is zero (indicating a singular matrix), in which case return None.
-   - Calculate the adjugate matrix.
-   - Multiply the adjugate matrix by the reciprocal of the determinant to get the inverse.
-3. Define a function matrixmul(matrix1, matrix2) to multiply two matrices.
-   - Initialize a result matrix with zeros.
-   - Use nested loops to iterate over rows and columns of the matrices and perform matrix multiplication.
-4. Calculate the inverse of matrix A using the inverse function.
-5. Print the original matrix A.
-6. Print the inverse of matrix A.
-7. Calculate the product of matrix A and its inverse using the matrixmul function.
-8. Print the product.
- To calculate the inverse of a given 3x3 matrix and verify it by multiplying the original matrix with its inverse.
+
+1.The matrix_inverse function takes a matrix as input and calculates its inverse using Gaussian elimination to reduce the augmented matrix to reduced row echelon form.
+
+2. The matrix_multiply function multiplies two matrices together using nested loops.
+
+3. An original matrix A is defined.
+
+4. The inverse of A is calculated using the matrix_inverse function.
+
+5. The product of A and its inverse is calculated using the matrix_multiply function.
+
+6. Finally, the original matrix, its inverse, and their product are displayed.
+
+This program essentially demonstrates how to find the inverse of a matrix and verify it by multiplying the original matrix with its inverse to get the identity matrix.
 
 
 
-# Original 3x3 matrix A
-A = [[0,1,2],
-     [1,0,3],
-     [4,-3,8]]
 
-# Function to calculate the inverse of a 3x3 matrix without using Python functions
-def inverse(matrix):
-    # Calculate the determinant of the matrix
-    det = (
-        matrix[0][0] * (matrix[1][1] * matrix[2][2] - matrix[1][2] * matrix[2][1]) -
-        matrix[0][1] * (matrix[1][0] * matrix[2][2] - matrix[1][2] * matrix[2][0]) +
-        matrix[0][2] * (matrix[1][0] * matrix[2][1] - matrix[1][1] * matrix[2][0])
-    )
+def matrix_inverse(matrix):
+    n = len(matrix)
+    # Augment the matrix with the identity matrix of the same size
+    augmented_matrix = [row + [1 if i == j else 0 for j in range(n)] for i, row in enumerate(matrix)]
+
+    # Perform row operations to get the reduced row echelon form
+    for i in range(n):
+        # Check if the diagonal element is zero
+        if augmented_matrix[i][i] == 0:
+            # If so, find a row below with a non-zero element in the same column and swap them
+            for k in range(i+1, n):
+                if augmented_matrix[k][i] != 0:
+                    augmented_matrix[i], augmented_matrix[k] = augmented_matrix[k], augmented_matrix[i]
+                    break
+            else:
+                # If no such row is found, skip this row
+                continue
+        
+        # Make the diagonal element 1
+        divisor = augmented_matrix[i][i]
+        for j in range(n * 2):
+            augmented_matrix[i][j] /= divisor
+        
+        # Make other elements in the same column 0
+        for k in range(n):
+            if k != i:
+                factor = augmented_matrix[k][i]
+                for j in range(n * 2):
+                    augmented_matrix[k][j] -= factor * augmented_matrix[i][j]
     
-    if det == 0:
-        return None  # Matrix is singular, inverse does not exist
-    else:
-        inv_det = 1 / det
-        # Calculate adjugate matrix
-        adjugate = [
-            [matrix[1][1] * matrix[2][2] - matrix[1][2] * matrix[2][1],
-             matrix[0][2] * matrix[2][1] - matrix[0][1] * matrix[2][2],
-             matrix[0][1] * matrix[1][2] - matrix[0][2] * matrix[1][1]],
-            [matrix[1][2] * matrix[2][0] - matrix[1][0] * matrix[2][2],
-             matrix[0][0] * matrix[2][2] - matrix[0][2] * matrix[2][0],
-             matrix[0][2] * matrix[1][0] - matrix[0][0] * matrix[1][2]],
-            [matrix[1][0] * matrix[2][1] - matrix[1][1] * matrix[2][0],
-             matrix[0][1] * matrix[2][0] - matrix[0][0] * matrix[2][1],
-             matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]]
-        ]
-        # Multiply adjugate matrix by 1/determinant
-        inverse = [[adjugate[i][j] * inv_det for j in range(3)] for i in range(3)]
-        return inverse
+    # Extract the right half of the augmented matrix (inverse of the original matrix)
+    inverse_matrix = [row[n:] for row in augmented_matrix]
+    return inverse_matrix
 
-# Function to multiply two matrices
-def matrixmul(matrix1, matrix2):
-    result = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-    for i in range(3):
-        for j in range(3):
-            for k in range(3):
-                result[i][j] += matrix1[i][k] * matrix2[k][j]
+def matrix_multiply(matrix1, matrix2):
+    result = []
+    for i in range(len(matrix1)):
+        row = []
+        for j in range(len(matrix2[0])):
+            sum = 0
+            for k in range(len(matrix2)):
+                sum += matrix1[i][k] * matrix2[k][j]
+            row.append(sum)
+        result.append(row)
     return result
 
-# Calculate inverse of matrix A
-A_inverse = inverse(A)
+# Original matrix A
+A = [
+    [0,1,2],
+    [1,0,3],
+    [4,-3,8]
+]
 
-# Print original matrix A
-print("Original matrix A:")
+# Calculate the inverse of A
+A_inverse = matrix_inverse(A)
+
+# Multiply A with its inverse
+product = matrix_multiply(A, A_inverse)
+
+# Display the results
+print("Original Matrix A:")
 for row in A:
     print(row)
 
-# Print inverse of matrix A
-print("\nInverse of matrix A:")
+print("\nInverse of Matrix A:")
 for row in A_inverse:
     print(row)
 
-# Calculate product of A and its inverse
-product = matrixmul(A, A_inverse)
-
-# Print the product
 print("\nProduct of A and its inverse:")
 for row in product:
     print(row)
 
-
-   Original matrix A:
+Original Matrix A:
 [0, 1, 2]
 [1, 0, 3]
 [4, -3, 8]
 
-Inverse of matrix A:
+Inverse of Matrix A:
 [-4.5, 7.0, -1.5]
 [-2.0, 4.0, -1.0]
 [1.5, -2.0, 0.5]
@@ -96,3 +103,12 @@ Product of A and its inverse:
 [1.0, 0.0, 0.0]
 [0.0, 1.0, 0.0]
 [0.0, 0.0, 1.0]
+
+
+
+
+
+
+
+
+
