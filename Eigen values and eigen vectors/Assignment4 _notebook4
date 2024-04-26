@@ -1,3 +1,20 @@
+
+1. Define the directed graph*: The graph is represented as a dictionary where each key is a web page and the corresponding value is a list of web pages that the key page links to.
+
+2. Get unique web pages*: Collect all unique web pages from the graph.
+
+3. Initialize the adjacency matrix*: Create an adjacency matrix A with dimensions n x n, where n is the number of unique web pages. Initialize all entries of the matrix to zero.
+
+4. Fill the adjacency matrix*: Iterate over each web page and its corresponding links in the graph. For each link, find the index of the linked page in the list of unique web pages and set the corresponding entry in the adjacency matrix to 1.
+
+5. Formulate the importance of each page as a linear algebra problem*: Print the adjacency matrix A as the representation of the graph.
+
+6. Verify that the solution to the problem is an Eigen Vector*: Compute the eigenvectors of the transpose of the adjacency matrix and find the eigenvector corresponding to the eigenvalue 1. This eigenvector represents the PageRank of each page.
+
+7. Rescale the Eigen Vector as a probability*: Normalize the PageRank vector by dividing each element by the sum of all elements, ensuring that the sum of all entries equals 1.
+
+8. Print the Page Rank (Importance of each page)*: Display the rescaled PageRank vector, indicating the importance of each page in the graph.
+
 import numpy as np
 
 # Define the directed graph
