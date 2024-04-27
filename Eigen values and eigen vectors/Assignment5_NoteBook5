@@ -1,0 +1,61 @@
+
+1. Import the required libraries:
+   - numpy as np
+
+2. Define the probability matrix P representing transitions between pages:
+   - Each row represents the probabilities of transitioning from the current page to other pages.
+
+3. Define the initial probability vectors for starting from Page 1 and Page 3:
+   - x_start_page1 represents starting from Page 1.
+   - x_start_page3 represents starting from Page 3.
+
+4. Define a function simulate_movement to simulate the movement for a given number of steps:
+   - This function takes the probability matrix P, the initial probability vector x, and the number of steps as input.
+   - It iteratively multiplies the probability vector x by the probability matrix P for the specified number of steps using matrix multiplication.
+
+5. Simulate movement starting from Page 1 for 100 steps:
+   - Call the simulate_movement function with the probability matrix P, the initial probability vector x_start_page1, and 100 steps.
+   - Print the composition of vector x after 100 steps starting from Page 1.
+
+6. Simulate movement starting from Page 3 for 100 steps:
+   - Call the simulate_movement function with the probability matrix P, the initial probability vector x_start_page3, and 100 steps.
+   - Print the composition of vector x after 100 steps starting from Page 3.
+import numpy as np
+
+# Define the probability matrix P
+P = np.array([
+    [0, 0, 1, 0.5],
+    [0.33333, 0, 0, 0],
+    [0.33333, 0.5, 0, 0.5],
+    [0.33333, 0.5, 0, 0]
+])
+
+# Define the initial probability vector for starting from Page 1 and Page 3
+x_start_page1 = np.array([1, 0, 0, 0])  # Starting from Page 1
+x_start_page3 = np.array([0, 0, 1, 0])  # Starting from Page 3
+
+# Function to simulate the movement for a given number of steps
+def simulate_movement(P, x, steps):
+    for _ in range(steps):
+        x = np.dot(x, P)
+    return x
+
+# Simulate movement starting from Page 1 for 100 steps
+result_page1 = simulate_movement(P, x_start_page1, 100)
+print("Composition of vector x starting from Page 1 after 100 steps:")
+print(result_page1)
+
+# Simulate movement starting from Page 3 for 100 steps
+result_page3 = simulate_movement(P, x_start_page3, 100)
+print("\nComposition of vector x starting from Page 3 after 100 steps:")
+print(result_page3)
+
+Composition of vector x starting from Page 1 after 100 steps:
+[0.38694672 0.38695009 0.38694822 0.38694897]
+
+Composition of vector x starting from Page 3 after 100 steps:
+[0.29020901 0.29021154 0.29021013 0.2902107 ]
+
+
+
+
