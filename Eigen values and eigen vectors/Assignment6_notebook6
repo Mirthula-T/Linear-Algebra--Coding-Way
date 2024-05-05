@@ -1,0 +1,74 @@
+
+
+1. Transition Matrix (P): The matrix representing the probability of transitioning from one web page to another.
+
+2. Handling Dangling Nodes: Dangling nodes are nodes with no outgoing links. The program adjusts for these by redistributing their probabilities evenly among all nodes.
+
+3. Adjusting for Cycles:The PageRank algorithm involves random jumps from one page to another. The program uses a damping factor (alpha) to control the probability of these jumps. The modified transition matrix G incorporates this factor.
+
+4. Calculating the Steady-State Vector (x): The program iteratively calculates the steady-state vector, which represents the probability distribution of a random surfer being on each page after many iterations. This is done until convergence is reached.
+ the Google Matrix (G) and the steady-state vector (x) representing the importance of each page.
+
+
+import numpy as np
+
+# Transition matrix P
+P = np.array([
+    [0, 1/2, 0, 0, 0, 0, 0],
+    [0, 0, 1/3, 0, 1/2, 0, 0],
+    [1,0, 0, 0, 0, 1/3, 0],
+    [0, 0,1/3,1, 0,0, 0],
+    [0, 1/2, 0,0, 0, 1/3,0],
+    [0, 0, 1/3, 0, 1/2, 0, 0],
+    [0, 0, 0, 0, 0,1/3, 1]
+])
+
+# Adjust for dangling nodes
+n = P.shape[0]
+dangling = np.ones(n) / n
+P_dangling = P.copy()
+for i in range(n):
+    if np.sum(P[:,i]) == 0:
+        P_dangling[:,i] = dangling
+
+# Adjust for cycles
+alpha = 0.85
+G = alpha * P_dangling + (1 - alpha) * np.ones((n, n)) / n
+
+# Calculate the steady-state vector
+x = np.ones(n) / n
+last_x = x.copy()
+for i in range(1000):  # iterate until convergence
+    x = np.dot(x, G)
+    if np.allclose(x, last_x):
+        break
+    last_x = x
+
+print("Google Matrix:")
+print(G)
+print("\nSteady-state vector:")
+print(x)
+
+
+Google Matrix:
+[[0.02142857 0.44642857 0.02142857 0.02142857 0.02142857 0.02142857
+  0.02142857]
+ [0.02142857 0.02142857 0.3047619  0.02142857 0.44642857 0.02142857
+  0.02142857]
+ [0.87142857 0.02142857 0.02142857 0.02142857 0.02142857 0.3047619
+  0.02142857]
+ [0.02142857 0.02142857 0.3047619  0.87142857 0.02142857 0.02142857
+  0.02142857]
+ [0.02142857 0.44642857 0.02142857 0.02142857 0.02142857 0.3047619
+  0.02142857]
+ [0.02142857 0.02142857 0.3047619  0.02142857 0.44642857 0.02142857
+  0.02142857]
+ [0.02142857 0.02142857 0.02142857 0.02142857 0.02142857 0.3047619
+  0.87142857]]
+
+Steady-state vector:
+[0.14285714 0.14285714 0.14285714 0.14285714 0.14285714 0.14285714
+ 0.14285714]
+
+
+
