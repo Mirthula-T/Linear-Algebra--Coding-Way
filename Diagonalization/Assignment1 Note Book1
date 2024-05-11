@@ -1,1 +1,70 @@
 
+1. Import the required libraries: numpy for numerical operations and matplotlib.pyplot for plotting.
+
+2. Define the basis vectors e1 and e2 as numpy arrays representing the standard basis vectors in R2.
+
+3. Define the Diagonal matrix D using np.diag, specifying the diagonal elements as [0, 3] to match the dimensionality of the vectors.
+
+4. Transform the basis vectors e1 and e2 using matrix multiplication with D, resulting in e1_transformed and e2_transformed.
+
+5. Plot the original and transformed basis vectors on a coordinate system using matplotlib.pyplot.plot. The original basis vectors are shown with solid lines, while the transformed vectors are shown with dashed lines.
+
+6. Define the vector x=(1,1).
+
+7. Transform the vector x using matrix multiplication with D, resulting in x_transformed.
+
+8. Plot the original and transformed vector x on a coordinate system similar to the previous step.
+
+9. Display both plots using matplotlib.pyplot.show().
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Define the basis vectors
+e1 = np.array([1, 0])
+e2 = np.array([0, 1])
+
+# Define the Diagonal matrix D
+D = np.diag([0, 3])  # Adjusted to match the dimensionality of the vectors
+
+# Transform the basis vectors using D
+e1_transformed = np.dot(D, e1)
+e2_transformed = np.dot(D, e2)
+
+# Plot the original and transformed basis vectors
+plt.figure()
+plt.plot([0, e1[0]], [0, e1[1]], label='Original e1')
+plt.plot([0, e2[0]], [0, e2[1]], label='Original e2')
+plt.plot([0, e1_transformed[0]], [0, e1_transformed[1]], label='Transformed e1')
+plt.plot([0, e2_transformed[0]], [0, e2_transformed[1]], label='Transformed e2')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Transformation of Basis Vectors')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# Transform the vector x=(1,1) using D
+x = np.array([1, 1])
+x_transformed = np.dot(D, x)
+
+# Plot the original and transformed vector x
+plt.figure()
+plt.plot([0, x[0]], [0, x[1]], label='Original x')
+plt.plot([0, x_transformed[0]], [0, x_transformed[1]], label='Transformed x')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Transformation of Vector x')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+
+
+
+
+
+
+
+
+
