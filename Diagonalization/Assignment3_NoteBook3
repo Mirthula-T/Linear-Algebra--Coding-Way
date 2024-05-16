@@ -1,0 +1,103 @@
+
+
+1. *Import Libraries:*
+    python
+    import numpy as np
+    from scipy.linalg import eig
+    
+
+2. *Define Matrix A:*
+    python
+    A = np.array([[1, 3, 3], [-3, -5, -3], [3, 3, 1]])
+    
+
+3. *Compute Eigenvalues and Eigenvectors:*
+    python
+    eigenvalues, eigenvectors = eig(A)
+    
+
+4. *Form Matrix P from the Eigenvectors:*
+    python
+    P = eigenvectors
+    
+
+5. *Form Matrix D from the Eigenvalues:*
+    python
+    D = np.diag(eigenvalues)
+    
+
+6. *Print Matrices P and D:*
+    python
+    print("Matrix P (eigenvectors):")
+    print(P)
+    print("Matrix D (eigenvalues):")
+    print(D)
+    
+
+7. *Calculate the Inverse of P:*
+    python
+    P_inv = np.linalg.inv(P)
+    
+
+8. *Reconstruct A Using PDP^-1:*
+    python
+    A_reconstructed = P @ D @ P_inv
+    
+
+9. *Print the Reconstructed A:*
+    python
+    print("Reconstructed A from PDP^-1:")
+    print(A_reconstructed)
+    
+
+10. *Verify if A_reconstructed is Close to the Original A:*
+    python
+    print("Is the reconstructed A close to the original A?")
+    print(np.allclose(A, A_reconstructed))
+    
+
+11. *Check the Determinant of P:*
+    python
+    det_P = np.linalg.det(P)
+    
+
+12. *Print the Determinant of P and Check Linear Independence of Columns:*
+    python
+    print("Determinant of P:")
+    print(det_P)
+    print("Are the columns of P linearly independent?")
+    print(det_P != 0)
+    
+ Explanation
+
+- *Matrix A:* This is the matrix for which we are finding eigenvalues and eigenvectors.
+- *Eigenvalues and Eigenvectors:* eig(A) from scipy.linalg computes the eigenvalues and right eigenvectors of a square array.
+- *Matrix P:* This is formed by placing the eigenvectors of matrix A as columns.
+- *Matrix D:* This is a diagonal matrix with eigenvalues of matrix A on the diagonal.
+- *Reconstruction of A:* Using the eigen decomposition, matrix A can be reconstructed as \( A = P D P^{-1} \).
+- *Verification:* np.allclose(A, A_reconstructed) checks if the original matrix A and the reconstructed matrix A are approximately equal, allowing for numerical precision errors.
+- *Determinant and Linear Independence:* The determinant of P is checked. If the determinant is non-zero, the columns of P are linearly independent, indicating P is invertible.
+
+
+OUTPUT
+Matrix P (eigenvectors):
+[[ 5.77350269e-01 -1.28197512e-16 -6.72654054e-01]
+ [-5.77350269e-01 -7.07106781e-01  7.37141689e-01]
+ [ 5.77350269e-01  7.07106781e-01 -6.44876349e-02]]
+Matrix D (eigenvalues):
+[[ 1.+0.j  0.+0.j  0.+0.j]
+ [ 0.+0.j -2.+0.j  0.+0.j]
+ [ 0.+0.j  0.+0.j -2.+0.j]]
+Reconstructed A from PDP^-1:
+[[ 1.+0.j  3.+0.j  3.+0.j]
+ [-3.+0.j -5.+0.j -3.+0.j]
+ [ 3.+0.j  3.+0.j  1.+0.j]]
+Is the reconstructed A close to the original A?
+True
+Determinant of P:
+-0.27460986748505883
+Are the columns of P linearly independent?
+True
+
+
+
