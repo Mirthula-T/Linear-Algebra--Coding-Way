@@ -1,32 +1,32 @@
 
 
-1. *Import Libraries:*
+1. Import Libraries:
     python
     import numpy as np
     from scipy.linalg import eig
     
 
-2. *Define Matrix A:*
+2. Define Matrix A:
     python
     A = np.array([[1, 3, 3], [-3, -5, -3], [3, 3, 1]])
     
 
-3. *Compute Eigenvalues and Eigenvectors:*
+3. Compute Eigenvalues and Eigenvectors:
     python
     eigenvalues, eigenvectors = eig(A)
     
 
-4. *Form Matrix P from the Eigenvectors:*
+4. Form Matrix P from the Eigenvectors:
     python
     P = eigenvectors
     
 
-5. *Form Matrix D from the Eigenvalues:*
+5. Form Matrix D from the Eigenvalues:
     python
     D = np.diag(eigenvalues)
     
 
-6. *Print Matrices P and D:*
+6. Print Matrices P and D:
     python
     print("Matrix P (eigenvectors):")
     print(P)
@@ -34,34 +34,34 @@
     print(D)
     
 
-7. *Calculate the Inverse of P:*
+7. Calculate the Inverse of P:
     python
     P_inv = np.linalg.inv(P)
     
 
-8. *Reconstruct A Using PDP^-1:*
+8. Reconstruct A Using PDP^-1:
     python
     A_reconstructed = P @ D @ P_inv
     
 
-9. *Print the Reconstructed A:*
+9. Print the Reconstructed A:
     python
     print("Reconstructed A from PDP^-1:")
     print(A_reconstructed)
     
 
-10. *Verify if A_reconstructed is Close to the Original A:*
+10. Verify if A_reconstructed is Close to the Original A:
     python
     print("Is the reconstructed A close to the original A?")
     print(np.allclose(A, A_reconstructed))
     
 
-11. *Check the Determinant of P:*
+11. Check the Determinant of P:
     python
     det_P = np.linalg.det(P)
     
 
-12. *Print the Determinant of P and Check Linear Independence of Columns:*
+12. Print the Determinant of P and Check Linear Independence of Columns:
     python
     print("Determinant of P:")
     print(det_P)
